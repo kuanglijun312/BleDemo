@@ -19,7 +19,7 @@
 					<key>needs-shine</key>
 					<true/>
 					<key>url</key>
-					<string>https://github.com/kuanglijun312/relonline/blob/master/57.png</string>
+					<string>https://raw.githubusercontent.com/kuanglijun312/relonline/master/57.png</string>
 				</dict>
 				<dict>
 					<key>kind</key>
@@ -27,7 +27,7 @@
 					<key>needs-shine</key>
 					<true/>
 					<key>url</key>
-					<string>https://github.com/kuanglijun312/relonline/blob/master/512.png</string>
+					<string>https://raw.githubusercontent.com/kuanglijun312/relonline/master/512.png</string>
 				</dict>
 			</array>
 			<key>metadata</key>
