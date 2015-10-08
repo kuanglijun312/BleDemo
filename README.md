@@ -10,6 +10,7 @@ swfit bluetooth demo
 [https://github.com/coolnameismy/BabyBluetooth](https://github.com/coolnameismy/BabyBluetooth)
 BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需要注意使用；例如:
 
+![BabyBluetooth code](https://github.com/kuanglijun312/BleDemo/blob/master/screenshots/code1.jpg)
 
 下面是一些swift的代码:
 `
