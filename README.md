@@ -13,8 +13,8 @@ BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需
 ![BabyBluetooth code](https://github.com/kuanglijun312/BleDemo/blob/master/screenshots/code1.jpg)
 
 下面是一些swift的代码:
-`
-	// 设备状态变动
+
+    // 设备状态变动
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         switch central.state {
         case CBCentralManagerState.PoweredOn:
@@ -128,6 +128,4 @@ BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需
             self.reloadAction("写入特征(\(characteristic.UUID))值\(characteristic.value)失败!")
         }
     }
-
-`
 
