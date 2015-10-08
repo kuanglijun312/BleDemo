@@ -4,14 +4,16 @@ swfit bluetooth demo
 主要是用swift写的ble的demo; ble看明白，很简单，调试下；看看结果就知道了
 参考如下: 
 [https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothOverview/CoreBluetoothOverview.html#//apple_ref/doc/uid/TP40013257-CH2-SW1](https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothOverview/CoreBluetoothOverview.html#//apple_ref/doc/uid/TP40013257-CH2-SW1)
+
 [http://southpeak.github.io/blog/2014/07/29/core-bluetoothkuang-jia-zhi-%5B%3F%5D-:centralyu-peripheral/](http://southpeak.github.io/blog/2014/07/29/core-bluetoothkuang-jia-zhi-%5B%3F%5D-:centralyu-peripheral/)
+
 [https://github.com/coolnameismy/BabyBluetooth](https://github.com/coolnameismy/BabyBluetooth)
 BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需要注意使用；例如:
 
 
 下面是一些swift的代码:
 `
-// 设备状态变动
+	// 设备状态变动
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         switch central.state {
         case CBCentralManagerState.PoweredOn:
@@ -97,16 +99,16 @@ BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需
             let data = NSString(data: characteristic.value, encoding: NSUTF8StringEncoding)
             if let val = data {
                 self.reloadValue("特征(\(characteristic.UUID))的值:\(val)")
-//                if characteristic.UUID.UUIDString == "FFF4" {
-//                    self.reloadValue("监听特征(\(characteristic.UUID))的值:\(val)")
-//                }
+	//                if characteristic.UUID.UUIDString == "FFF4" {
+	//                    self.reloadValue("监听特征(\(characteristic.UUID))的值:\(val)")
+	//                }
             }
         }
     }
     
     //监听特征delegate
     func peripheral(peripheral: CBPeripheral!, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
-//        self.reloadValue("监听特征(\(characteristic.UUID))的值:\(characteristic.value)")
+	//        self.reloadValue("监听特征(\(characteristic.UUID))的值:\(characteristic.value)")
         if error != nil {
             self.reloadAction("订阅特征(\(characteristic.UUID))失败:\(error.description):\(error.description)")
         } else {
