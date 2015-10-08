@@ -14,6 +14,12 @@ BabyBluetooth 做了一个简单的封装，可以参考下；但针对swift,需
 
 下面是一些swift的代码:
 
+	//Central管理器 -- client
+	self.centralManager = CBCentralManager(delegate: self, queue: nil)
+
+delegate代码:
+
+
     // 设备状态变动
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         switch central.state {
