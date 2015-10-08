@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4338DEE4-91BE-4042-A03F-429E6162C131</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BleDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>689D55CC58CA521AEBC5529ADF8ADC77C4FD3485</key>
+		<string>https://github.com/kuanglijun312/BleDemo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BleDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>689D55CC58CA521AEBC5529ADF8ADC77C4FD3485</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kuanglijun312/BleDemo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>689D55CC58CA521AEBC5529ADF8ADC77C4FD3485</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>689D55CC58CA521AEBC5529ADF8ADC77C4FD3485</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BleDemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
