@@ -112,15 +112,15 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     @IBAction func writeDataAction(sender: AnyObject) {
         if sender.tag == 1 {
             //握手
-            if !self.dataTextField.text.isEmpty && self.writeCharacteristic != nil {
+            if !self.dataTextField.text!.isEmpty && self.writeCharacteristic != nil {
                 self.reloadAction("写入握手数据:\(self.dataTextField.text)")
-                self.currentPeripheral.writeValue((self.dataTextField.text as NSString).dataUsingEncoding(NSUTF8StringEncoding) , forCharacteristic: self.writeCharacteristic, type: CBCharacteristicWriteType.WithResponse)
+                self.currentPeripheral.writeValue((self.dataTextField.text! as NSString).dataUsingEncoding(NSUTF8StringEncoding)! , forCharacteristic: self.writeCharacteristic, type: CBCharacteristicWriteType.WithResponse)
             }
         } else if sender.tag == 2 {
             //去皮
-            if !self.resetTextField.text.isEmpty && self.resetCharacteristic != nil {
+            if !self.resetTextField.text!.isEmpty && self.resetCharacteristic != nil {
                 self.reloadAction("写入去皮数据:\(self.resetTextField.text)")
-                self.currentPeripheral.writeValue((self.resetTextField.text as NSString).dataUsingEncoding(NSUTF8StringEncoding) , forCharacteristic: self.resetCharacteristic, type: CBCharacteristicWriteType.WithResponse)
+                self.currentPeripheral.writeValue((self.resetTextField.text! as NSString).dataUsingEncoding(NSUTF8StringEncoding)! , forCharacteristic: self.resetCharacteristic, type: CBCharacteristicWriteType.WithResponse)
             }
         }
     }
@@ -149,7 +149,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     
     // 设备状态变动
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
+    func centralManagerDidUpdateState(central: CBCentralManager) {
         switch central.state {
         case CBCentralManagerState.PoweredOn:
             self.reloadAction("设备打开成功")
@@ -169,7 +169,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //发现设备
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         self.reloadAction("搜索到了设备:\(peripheral.name)")
         if peripheral.name != nil && peripheral.name == "weigher" {
             self.currentPeripheral = peripheral
@@ -181,7 +181,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //已连接设备
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         self.reloadAction("设备：\(peripheral.name)--连接成功")
         peripheral.delegate = self
         //去发现服务
@@ -190,18 +190,18 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //取消连接设备
-    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
+    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         if error == nil {
             self.reloadAction("设备：\(peripheral.name)--取消连接成功")
             isLinkPeripheral = false
         } else {
-            self.reloadAction("设备：\(peripheral.name)--取消连接失败:(\(error.description))")
+            self.reloadAction("设备：\(peripheral.name)--取消连接失败:(\(error!.description))")
         }
     }
     
     //发现服务
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
-        for service in peripheral.services as! [CBService] {
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+        for service in peripheral.services! {
             self.reloadAction("搜索到服务:\(service.UUID.UUIDString)")
             //去发现特征
             peripheral.discoverCharacteristics(nil, forService: service)
@@ -209,8 +209,8 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //发现特征
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
-        for characteristic in service.characteristics as! [CBCharacteristic] {
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+        for characteristic in service.characteristics! {
             self.reloadAction("特征名称:\(characteristic.UUID)")
             peripheral.readValueForCharacteristic(characteristic)
             if characteristic.UUID.UUIDString == Notify_Characteristic_UUID {
@@ -229,9 +229,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //读取到特征的值-- 注意，只有在连接成功的时候，读取到； 若要监听，使用Notify
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if characteristic.value != nil {
-            let data = NSString(data: characteristic.value, encoding: NSUTF8StringEncoding)
+            let data = NSString(data: characteristic.value!, encoding: NSUTF8StringEncoding)
             if let val = data {
                 self.reloadValue("特征(\(characteristic.UUID))的值:\(val)")
 //                if characteristic.UUID.UUIDString == "FFF4" {
@@ -242,10 +242,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     //监听特征delegate
-    func peripheral(peripheral: CBPeripheral!, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
 //        self.reloadValue("监听特征(\(characteristic.UUID))的值:\(characteristic.value)")
         if error != nil {
-            self.reloadAction("订阅特征(\(characteristic.UUID))失败:\(error.description):\(error.description)")
+            self.reloadAction("订阅特征(\(characteristic.UUID))失败:\(error!.description)")
         } else {
             if characteristic.UUID.UUIDString == Notify_Characteristic_UUID {
                 self.isNotify4 = !self.isNotify4
@@ -255,7 +255,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         }
     }
     
-    func peripheral(peripheral: CBPeripheral!, didWriteValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if error == nil {
             self.reloadAction("写入特征(\(characteristic.UUID))值\(characteristic.value)成功!")
         } else {
@@ -269,7 +269,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         } else {
             actionList.insert(str, atIndex: 0)
         }
-        println("action: \(str)")
+        print("action: \(str)")
         self.actionTableView.reloadData()
     }
     
@@ -279,7 +279,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         } else {
             dataList.insert(str, atIndex: 0)
         }
-        println("data: \(str)")
+        print("data: \(str)")
         self.dataTableView.reloadData()
     }
     
@@ -299,7 +299,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     let cellIdentify = "cell"
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentify, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentify, forIndexPath: indexPath) 
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         cell.textLabel?.font = UIFont.systemFontOfSize(11)
